@@ -1,0 +1,18 @@
+body {
+  background: black;
+  color: palegoldenrod;
+}
+
+.row {
+  display: flex;
+  flex-grow: 100%;
+  justify-content: space-evenly;  
+}
+
+.row-title {
+  align-items: flex-end;
+}
+
+.cell{
+  border: 1px solid pink;
+}
