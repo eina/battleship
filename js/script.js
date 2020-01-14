@@ -2,10 +2,12 @@
 let buttonList = document.getElementsByTagName('button');
 
 for (let i = 0; i < buttonList.length; i++) {
-  // console.log('button item?', button[i])
-  const clickButton = function () {
-    console.log('hello button!')
+  const findBtnLocation = function () {
+    const closestElement = buttonList[i].closest(".row");
+    console.log('hello button!', closestElement.classList)
+    // figure out where you are???
+    // use jquery?????
   }
-  buttonList[i].onclick = clickButton;
+  buttonList[i].onclick = findBtnLocation;
 }
 
