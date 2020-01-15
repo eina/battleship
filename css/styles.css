@@ -1,4 +1,4 @@
-#board__enemy {
+.board {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
@@ -6,7 +6,7 @@
   justify-items: stretch;
   text-align: center;
   /* align-items: center; */
-  width: 300px;
+  max-width: 500px;
   background-color: pink;
 }
 

@@ -1,13 +1,7 @@
-// console.log('hello!');
-let buttonList = document.getElementsByTagName('button');
+// const { enemyBoardData }= require('./data');
+// const { generateEnemyBoard }= require('./functions');
 
-for (let i = 0; i < buttonList.length; i++) {
-  const findBtnLocation = function () {
-    const closestElement = buttonList[i].closest(".row");
-    console.log('hello button!', closestElement.classList)
-    // figure out where you are???
-    // use jquery?????
-  }
-  buttonList[i].onclick = findBtnLocation;
-}
-
+// when you press start you want to generate an enemy board
+generateEnemyBoard(testEnemyArr);
+// also generate the other player's board to be hit
+generateBlankEnemyBoard(testEnemyArr);

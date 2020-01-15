@@ -11,22 +11,7 @@ const testEnemyArr = {
   j: [null, null, 'O', null, null, null, null, null, null, null],
 };
 
-// test if i can append 
-const enemyBoard = u('#board__enemy');
-// let enemyRow = u('.row');
-
-// console.log('what is this', enemyRow);
-
-if(enemyBoard) {
-  for (const x of Object.keys(testEnemyArr)) {
-    const row = testEnemyArr[x];  
-    enemyBoard.append((status) => {
-        if(status === null) {
-          return '<div class="cell">--</div>';
-        } else {
-          return `<div class="cell">${status}</div>`;
-        }
-    }, row);
-  }
-}
+// module.exports = {
+//   testEnemyArr
+// }
 
