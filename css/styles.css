@@ -1,18 +1,15 @@
-body {
-  background: black;
-  color: palegoldenrod;
+#board__enemy {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  grid-gap: 3px;
+  justify-items: stretch;
+  text-align: center;
+  /* align-items: center; */
+  width: 300px;
+  background-color: pink;
 }
 
-.row {
-  display: flex;
-  flex-grow: 100%;
-  justify-content: space-evenly;  
-}
-
-.row-title {
-  align-items: flex-end;
-}
-
-.cell{
-  border: 1px solid pink;
+.cell {
+  background-color: lightgrey;
 }
