@@ -11,7 +11,7 @@ const testEnemyArr = {
   j: [null, null, 'O', null, null, null, null, null, null, null],
 };
 
-// module.exports = {
-//   testEnemyArr
-// }
+module.exports = {
+  testEnemyArr
+}
 

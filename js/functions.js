@@ -1,6 +1,7 @@
+import u from 'umbrellajs';
+
 function generateEnemyBoard(boardData) {
-  // test if i can append 
-  const enemyBoard = u('#board__enemy');  
+  const enemyBoard = u('#board__enemy');    
   if(enemyBoard) {
     for (const x of Object.keys(boardData)) {
       const data = boardData[x];  
@@ -27,6 +28,6 @@ function generateBlankEnemyBoard(boardData) {
   }
 }
 
-// module.exports = {
-//   generateEnemyBoard
-// }
+module.exports = {
+  generateEnemyBoard
+}
