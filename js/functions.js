@@ -1,33 +1,41 @@
 import u from 'umbrellajs';
 
-function generateEnemyBoard(boardData) {
-  const enemyBoard = u('#board__enemy');    
-  if(enemyBoard) {
-    for (const x of Object.keys(boardData)) {
-      const data = boardData[x];  
-      enemyBoard.append((status) => {
-          if(status === null) {
-            return '<div class="cell">--</div>';
-          } else {
-            return `<div class="cell">${status}</div>`;
-          }
+// generate board with ships
+function generateActiveBoard(boardData, idName) {  
+  const board = u(`#${idName}`);        
+  if(board) {
+    for (const key of Object.keys(boardData)) {
+      const data = boardData[key];  
+      board.append((status, index) => {  
+        return (`<div class="cell row-${key} col-${index}">${status === null ? '--' : status}</div>`);
       }, data);
     }
   }  
 }
 
 // generate blank one to be hit!!!!
-function generateBlankEnemyBoard(boardData) {
-  const blankBoard = u('#board__enemy--blank');
-  
-  if(blankBoard) {
+function generateObscuredBoard(boardData, idName) {
+  const board = u(`#${idName}`);   
+  if(board) {
     for (const x of Object.keys(boardData)) {
       const data = boardData[x];  
-      blankBoard.append((status) => '<button class="cell">hit</button>', data);
+      board.append((status, index) => {      
+        return (`<div class="cell">
+          <button class="btn-cell"           
+              data-x=${index} 
+              data-y=${x}
+              >?</button>
+        </div>`);
+      }, data);
     }        
   }
 }
 
+function cellBtnClick() {
+  console.log('a click!');
+}
+
 module.exports = {
-  generateEnemyBoard
+  generateActiveBoard,
+  generateObscuredBoard
 }
