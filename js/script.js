@@ -1,11 +1,12 @@
 import u from 'umbrellajs';
-import { testEnemyArr } from './data';
-import { generateActiveBoard, generateObscuredBoard } from './functions';
+import { testEnemyArr, testShipsArr } from './data';
+import { generateActiveBoard, 
+  generateObscuredBoard,
+  clickObscuredCell
+ } from './functions';
 
-/* TESTING */
-
-generateActiveBoard(testEnemyArr, "player2--active");
-
+/* TESTING WITH STATIC DATA*/
+generateActiveBoard(testShipsArr, "player2--active");
 
 /** 
  * when you press start you want to generate
@@ -14,17 +15,11 @@ generateActiveBoard(testEnemyArr, "player2--active");
 
 generateObscuredBoard(testEnemyArr, "player2--hidden");
 
-// assign a click handler to the buttons
+/**
+ * Assigns a click handler for the obscured board's buttons
+ * will change data of array it's generating
+ * will also change visually
+ */
 const buttons = u('.btn-cell');
-buttons.handle('click', (e) => {
-  const { x, y } = e.target.dataset  
-  // console.log('what do you know about yourself', x, y);
-  if(testEnemyArr[y][x] === 'O') {
-    console.log('hit!!!!', testEnemyArr[y][x])
-    // will change array
-    testEnemyArr[y][x] = "X";
-    // change visual
-    // console.log(`cell row-${x} col-${y}`);
-    u(`div.cell.row-${y}.col-${x}`).text('X');
-  }  
-})
+buttons.handle('click', (e) => clickObscuredCell(e, testEnemyArr))
+

@@ -1,12 +1,10 @@
 .board {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  grid-template-rows: repeat(10, 1fr);
-  grid-gap: 3px;
-  justify-items: stretch;
-  text-align: center;
-  /* align-items: center; */
-  max-width: 500px;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: repeat(11, 1fr);
+  grid-gap: 3px;  
+  text-align: center;    
+  max-width: 625px;
   background-color: pink;
 }
 
