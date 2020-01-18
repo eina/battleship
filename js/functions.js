@@ -45,12 +45,25 @@ function generateObscuredBoard(boardData, idName) {
   if(board) {
     for (const key of Object.keys(boardData)) {
       const data = boardData[key];
+      // col header
       board.append(`<div class="cell-header">
         ${key === "header" ? " " : key}
       </div>`);
-      board.append((status, index) => {      
+      board.append((status, index) => {
+        // row header
+        // console.log('what the fuck is this tho', status)
         if(key === "header") {
           return `<div class="cell-header">${status}</div>`
+        }
+        if(status && status.shipType) {
+          console.log(status.hit)
+          return (`<div class="cell">          
+            <button class="btn-cell"
+                ${status.hit ? 'disabled' : ''}
+                data-x=${key} 
+                data-y=${index}>?
+            </button>
+          </div>`);                    
         }
         return (`<div class="cell">          
           <button class="btn-cell"           
@@ -79,6 +92,9 @@ function clickObscuredCell(e, dataArr, shipsState) {
   if(cellDetail && cellDetail.shipType) {    
     const { shipType } = cellDetail;
     const { length, hitParts } = shipsState[shipType];
+
+    // disable button if hit
+    e.target.disabled = true;
     // change dataArr
     cellDetail.hit = true;
     // update player2 shipState
@@ -92,7 +108,7 @@ function clickObscuredCell(e, dataArr, shipsState) {
     // increment score if a ship is down
     incrementScore('player1', shipsState[shipType]);
     console.log('what the score?', scores.player1)
-    stopGame(scores.player1)
+    stopGame(scores.player1)    
     // console.log('hit!!!!', x, y,);
     // console.log('did you update', shipsState[shipType])    
   }  

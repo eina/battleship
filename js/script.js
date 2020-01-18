@@ -31,7 +31,7 @@ const player2ShipsState = testPlaceShips(shipsDefaults);
  * when you press start you want to generate
  *  player 2's obscured board for player 1
  * */
-generateObscuredBoard(testEnemyArr, "player2--hidden");
+generateObscuredBoard(testShipsArr, "player2--hidden");
 
 // TESTING: player 2's active board where you can see the ships
 generateActiveBoard(testShipsArr, "player2--active");
