@@ -43,13 +43,13 @@ const shipsDefaults = {
     active: true // if hit completely becomes false?
   },
   cruiser: {
-    hitParts: 0,
+    hitParts: 1,
     length: 3,
     placed: false,        
     active: true // if hit completely becomes false?
   },
   submarine: {
-    hitParts: 0,
+    hitParts: 1,
     length: 3,
     placed: false,        
     active: true // if hit completely becomes false?

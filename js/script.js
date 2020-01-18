@@ -25,7 +25,7 @@ function testPlaceShips(shipDefaultsObj) {
 }
 
 const player2ShipsState = testPlaceShips(shipsDefaults);
-console.log('are you all different?', player2ShipsState, shipsDefaults);
+// console.log('are you all different?', player2ShipsState, shipsDefaults);
 
 /** 
  * when you press start you want to generate

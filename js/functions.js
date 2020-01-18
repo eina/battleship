@@ -91,9 +91,10 @@ function clickObscuredCell(e, dataArr, shipsState) {
     u(`div.cell.row-${x}.col-${y}`).text('X');
     // increment score if a ship is down
     incrementScore('player1', shipsState[shipType]);
-    // console.log('hit!!!!', x, y,);
-    console.log('did you update', shipsState[shipType])    
     console.log('what the score?', scores.player1)
+    stopGame(scores.player1)
+    // console.log('hit!!!!', x, y,);
+    // console.log('did you update', shipsState[shipType])    
   }  
 }
 
@@ -102,6 +103,12 @@ function incrementScore(player, shipState) {
     console.log('increase score!');
     scores[player] += 1;
   }  
+}
+
+function stopGame(score) {
+  if(score === 5) {
+    console.log('you won! stop it!!!!!')
+  }
 }
 
 module.exports = {
