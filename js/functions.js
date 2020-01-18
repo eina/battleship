@@ -1,5 +1,5 @@
 import u from 'umbrellajs';
-
+import { scores } from './data';
 /**
  * Helper function to show proper marker for ships on board
  * @param {object} shipObj 
@@ -63,17 +63,44 @@ function generateObscuredBoard(boardData, idName) {
   }
 }
 
-function clickObscuredCell(e, dataArr) {
-  const { x, y } = e.target.dataset  
-  console.log('what do you know about yourself', x, y);
+function isShipAlive(hitParts, length) {  
+  if(hitParts === length) {
+    console.log('ship down!')
+    return false;
+  }
+  return true;
+}
 
-  if(dataArr[x][y] === 'O') {
-    console.log('hit!!!!', dataArr[x][y])
-    // will change array
-    dataArr[x][y] = "X";
-    // change visual
-    // console.log(`cell row-${x} col-${y}`);
+function clickObscuredCell(e, dataArr, shipsState) {
+  const { x, y } = e.target.dataset;
+  const cellDetail = dataArr[x][y];
+
+  // if you hit a ship, it'll always be an object with a shipType property
+  if(cellDetail && cellDetail.shipType) {    
+    const { shipType } = cellDetail;
+    const { length, hitParts } = shipsState[shipType];
+    // change dataArr
+    cellDetail.hit = true;
+    // update player2 shipState
+    shipsState[shipType] = { 
+      ...shipsState[shipType], 
+      hitParts: hitParts + 1, 
+      active: isShipAlive(hitParts + 1, length)
+    }
+    // change visual to match
     u(`div.cell.row-${x}.col-${y}`).text('X');
+    // increment score if a ship is down
+    incrementScore('player1', shipsState[shipType]);
+    // console.log('hit!!!!', x, y,);
+    console.log('did you update', shipsState[shipType])    
+    console.log('what the score?', scores.player1)
+  }  
+}
+
+function incrementScore(player, shipState) {
+  if(shipState && shipState.active === false) {        
+    console.log('increase score!');
+    scores[player] += 1;
   }  
 }
 

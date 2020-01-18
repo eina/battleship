@@ -27,8 +27,50 @@ const testShipsArr ={
   j: [null, null, {shipType: 'battleship', hit: false}, null, null, null, null, null, null, null],
 };
 
+// default should never change!
+// when placed give coords?
+const shipsDefaults = {
+  carrier: {
+    hitParts: 0,
+    length: 5,
+    placed: false,        
+    active: true // if hit completely becomes false?
+  },
+  battleship: {
+    hitParts: 0,
+    length: 4,
+    placed: false,        
+    active: true // if hit completely becomes false?
+  },
+  cruiser: {
+    hitParts: 0,
+    length: 3,
+    placed: false,        
+    active: true // if hit completely becomes false?
+  },
+  submarine: {
+    hitParts: 0,
+    length: 3,
+    placed: false,        
+    active: true // if hit completely becomes false?
+  },
+  destroyer: {
+    hitParts: 0,
+    length: 2,
+    placed: false,        
+    active: true // if hit completely becomes false?
+  }   
+}
+
+const scores = {
+  player1: 0,
+  player2: 0
+}
+
 module.exports = {
   testEnemyArr,
-  testShipsArr
+  testShipsArr,
+  shipsDefaults,
+  scores
 }
 
