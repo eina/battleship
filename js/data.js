@@ -27,6 +27,29 @@ const testShipsArr ={
   j: [null, null, {shipType: 'battleship', hit: false}, null, null, null, null, null, null, null],
 };
 
+/**
+ * Default starting board! 
+ * No need to generate this lmao
+ */
+const _board = {
+  a: [null, null, null, null, null,null, null, null, null, null],
+  b: [null, null, null, null, null,null, null, null, null, null],
+  c: [null, null, null, null, null,null, null, null, null, null],
+  d: [null, null, null, null, null,null, null, null, null, null],
+  e: [null, null, null, null, null,null, null, null, null, null],
+  f: [null, null, null, null, null,null, null, null, null, null],
+  g: [null, null, null, null, null,null, null, null, null, null],
+  h: [null, null, null, null, null,null, null, null, null, null],
+  i: [null, null, null, null, null,null, null, null, null, null],
+  j: [null, null, null, null, null,null, null, null, null, null]
+}
+
+const _player = {
+  board: {}, // object of arrays
+  shipsState: {}, // from shipsDefaults
+  score: 0
+}
+
 // default should never change!
 // when placed give coords?
 const shipsDefaults = {
@@ -62,7 +85,7 @@ const shipsDefaults = {
   }   
 }
 
-const scores = {
+const _scores = {
   player1: 0,
   player2: 0
 }
@@ -71,6 +94,8 @@ module.exports = {
   testEnemyArr,
   testShipsArr,
   shipsDefaults,
-  scores
+  _scores,
+  _player,
+  _board
 }
 

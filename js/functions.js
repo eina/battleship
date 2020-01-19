@@ -1,5 +1,10 @@
 import u from 'umbrellajs';
-import { scores } from './data';
+import { _scores } from './data';
+
+function generateStartingBoard() {
+
+}
+
 /**
  * Helper function to show proper marker for ships on board
  * @param {object} shipObj 
@@ -56,7 +61,7 @@ function generateObscuredBoard(boardData, idName) {
           return `<div class="cell-header">${status}</div>`
         }
         if(status && status.shipType) {
-          console.log(status.hit)
+          // console.log(status.hit)
           return (`<div class="cell">          
             <button class="btn-cell"
                 ${status.hit ? 'disabled' : ''}
@@ -107,8 +112,8 @@ function clickObscuredCell(e, dataArr, shipsState) {
     u(`div.cell.row-${x}.col-${y}`).text('X');
     // increment score if a ship is down
     incrementScore('player1', shipsState[shipType]);
-    console.log('what the score?', scores.player1)
-    stopGame(scores.player1)    
+    // console.log('what the score?', scores.player1)
+    stopGame(_scores.player1)    
     // console.log('hit!!!!', x, y,);
     // console.log('did you update', shipsState[shipType])    
   }  
@@ -117,7 +122,7 @@ function clickObscuredCell(e, dataArr, shipsState) {
 function incrementScore(player, shipState) {
   if(shipState && shipState.active === false) {        
     console.log('increase score!');
-    scores[player] += 1;
+    _scores[player] += 1;
   }  
 }
 

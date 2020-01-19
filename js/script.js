@@ -1,9 +1,33 @@
 import u from 'umbrellajs';
-import { testEnemyArr, testShipsArr, shipsDefaults } from './data';
+import { _randNum, _randRowLetter, _randOrientation } from './utils';
+import { testEnemyArr, testShipsArr, shipsDefaults, _player } from './data';
 import { generateActiveBoard, 
   generateObscuredBoard,
   clickObscuredCell
  } from './functions';
+
+
+/* Planning start function */
+function startGame () {
+  // make player1 and player2 with player?
+  const player1 = player;
+  const player2 = player;
+
+  // generateBoard for player 2 with ships
+  // generateObscure for player 2 after ships are placed
+};
+
+
+function generateShipPosition(board, ship){
+  // generate orientation
+  const orientation = _randOrientation();
+  // if vertical, check col and ship length?
+  // if horizontal, check row and ship length?
+  const startingPoint = {
+    row: _randRowLetter,
+    col: _randNum(9) // how do i make this generate properly?
+  }
+}
 
 /* TESTING WITH STATIC DATA*/
 
