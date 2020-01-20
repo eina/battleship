@@ -24,8 +24,18 @@ const _randOrientation = () => {
   return orientation[randIdx];
 }
 
+const _generateBoardID = (name, obscured) => {
+  const boardId = name.replace(/\s/g, '').toLowerCase();
+  if(obscured) {    
+    return `${boardId}--hidden`;
+  } else {
+    return `${boardId}--active`;
+  }
+}
+
 export {
   _randNum,
   _randRowLetter,
-  _randOrientation
+  _randOrientation,
+  _generateBoardID
 }

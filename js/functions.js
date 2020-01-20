@@ -108,7 +108,7 @@ function clickObscuredCell(e, dataArr, shipsState) {
       hitParts: hitParts + 1, 
       active: isShipAlive(hitParts + 1, length)
     }
-    // change visual to match
+    // change visual to match   
     u(`div.cell.row-${x}.col-${y}`).text('X');
     // increment score if a ship is down
     incrementScore('player1', shipsState[shipType]);

@@ -1,10 +1,46 @@
 import u from 'umbrellajs';
 import { _randNum, _randRowLetter, _randOrientation } from './utils';
-import { testEnemyArr, testShipsArr, shipsDefaults, _player } from './data';
+import player from './player'
+import { testEnemyArr, testShipsArr, shipsDefaults } from './data';
 import { generateActiveBoard, 
   generateObscuredBoard,
   clickObscuredCell
  } from './functions';
+
+// when game loads, instantiate players
+const player1 = {...player};
+const player2 = {...player};
+
+// give playerNames, grab player 1's from user input
+player1.setPlayerName('Player 1')
+player2.setPlayerName('Player 2')
+// console.log('player objs', player1, player2)
+
+// when instantiated, generate boards
+// player 1's boards
+player1.showBoardOnDOM()
+player2.showBoardOnDOM(true)
+
+// player 2's boards
+player2.showBoardOnDOM()
+player1.showBoardOnDOM(true)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* Planning start function */
@@ -48,23 +84,23 @@ function testPlaceShips(shipDefaultsObj) {
   return newObj;
 }
 
-const player2ShipsState = testPlaceShips(shipsDefaults);
+// const player2ShipsState = testPlaceShips(shipsDefaults);
 // console.log('are you all different?', player2ShipsState, shipsDefaults);
 
 /** 
  * when you press start you want to generate
  *  player 2's obscured board for player 1
  * */
-generateObscuredBoard(testShipsArr, "player2--hidden");
+// generateObscuredBoard(testShipsArr, "player2--hidden");
 
 // TESTING: player 2's active board where you can see the ships
-generateActiveBoard(testShipsArr, "player2--active");
+// generateActiveBoard(testShipsArr, "player2--active");
 
 /**
  * Assigns a click handler for the obscured board's buttons
  * will change data of array it's generating
  * will also change visually
  */
-const buttons = u('.btn-cell');
-buttons.handle('click', (e) => clickObscuredCell(e, testShipsArr, player2ShipsState))
+// const buttons = u('.btn-cell');
+// buttons.handle('click', (e) => clickObscuredCell(e, testShipsArr, player2ShipsState))
 

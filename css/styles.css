@@ -1,3 +1,10 @@
+.board-container {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-flow: row nowrap;
+}
+
 .board {
   display: grid;
   grid-template-columns: repeat(11, 1fr);
@@ -10,4 +17,8 @@
 
 .cell {
   background-color: lightgrey;
+}
+
+.board--player1 {
+  background-color: lightslategray;
 }

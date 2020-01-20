@@ -32,6 +32,7 @@ const testShipsArr ={
  * No need to generate this lmao
  */
 const _board = {
+  header: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
   a: [null, null, null, null, null,null, null, null, null, null],
   b: [null, null, null, null, null,null, null, null, null, null],
   c: [null, null, null, null, null,null, null, null, null, null],
@@ -42,12 +43,6 @@ const _board = {
   h: [null, null, null, null, null,null, null, null, null, null],
   i: [null, null, null, null, null,null, null, null, null, null],
   j: [null, null, null, null, null,null, null, null, null, null]
-}
-
-const _player = {
-  board: {}, // object of arrays
-  shipsState: {}, // from shipsDefaults
-  score: 0
 }
 
 // default should never change!
@@ -94,8 +89,7 @@ module.exports = {
   testEnemyArr,
   testShipsArr,
   shipsDefaults,
-  _scores,
-  _player,
+  _scores,  
   _board
 }
 

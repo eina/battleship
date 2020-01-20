@@ -10,14 +10,20 @@
 </head>
 <body>
   <!-- 10 x 10 board -->
-  <div id="board-container">
-    <p>player 1 / YOU</p>
+  <div id="main-container">
+    <p>player 1 / YOU, what you see!!!</p>
     <p>try to hit the enemy's board!!!</p>
-    <div class="board" id="player2--hidden"></div>
+    <div class="board-container">
+      <div class="board board--player1" id="player1--active"></div>
+      <div class="board board--player2" id="player2--hidden"></div>
+    </div>
     <!-- still missing board to place ships in! -->
     
-    <p>player 2 / enemy board</p>
-    <div class="board" id="player2--active"></div>    
+    <p>player 2 / enemy board, what enemy sees!!</p>
+    <div class="board-container">
+      <div class="board board--player2" id="player2--active"></div>    
+      <div class="board board--player1" id="player1--hidden"></div>    
+    </div>
     <!-- still missing player 1's obscured board! -->
  
   </div>
