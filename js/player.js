@@ -1,10 +1,12 @@
 import u from "umbrellajs";
 import { shipsDefaults, _board } from "./data";
-import { _generateBoardID } from "./utils";
+// import { _generateBoardID } from "./utils";
 import {
+  _generateBoardID,
   _generateObscuredBoard,
   _generateActiveBoard,
 } from "./board";
+
 /**
  * Player object and its defaults
  */

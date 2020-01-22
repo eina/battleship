@@ -10,7 +10,7 @@ const _randNum = max => {
  * Util: Generate a random letter from a - j
  * @returns {string}
  */
-const _randRowLetter = () => {
+const _randRowLetter = (max = 9) => {
   const letterArrays = [
     "a",
     "b",
@@ -23,7 +23,7 @@ const _randRowLetter = () => {
     "i",
     "j",
   ];
-  const randIdx = _randNum(9);
+  const randIdx = _randNum(max);
 
   return letterArrays[randIdx];
 };
@@ -35,18 +35,12 @@ const _randOrientation = () => {
   return orientation[randIdx];
 };
 
-const _generateBoardID = (name, obscured) => {
-  const boardId = name.replace(/\s/g, "").toLowerCase();
-  if (obscured) {
-    return `${boardId}--hidden`;
-  } else {
-    return `${boardId}--active`;
+const _generateRange = (min, max) => {
+  let result = [];
+  for (let i = min; i < max; i++) {
+    result.push(i);
   }
+  return result;
 };
 
-export {
-  _randNum,
-  _randRowLetter,
-  _randOrientation,
-  _generateBoardID,
-};
+export { _randNum, _randRowLetter, _randOrientation, _generateRange };

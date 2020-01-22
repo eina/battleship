@@ -2,7 +2,8 @@ import u from "umbrellajs";
 import { _randNum, _randRowLetter, _randOrientation } from "./utils";
 import player from "./player";
 import { _clickObscuredCell } from "./board";
-import { testEnemyArr, testShipsArr, shipsDefaults } from "./data";
+// import { testEnemyArr, testShipsArr, shipsDefaults } from "./data";
+import { shipsDefaults } from "./data";
 import {
   generateActiveBoard,
   generateObscuredBoard,

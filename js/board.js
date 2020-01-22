@@ -1,7 +1,111 @@
+import {
+  _randNum,
+  _randRowLetter,
+  _randOrientation,
+  _generateRange,
+} from "./utils";
 /**
  * BOARD RELATED FUNCTIONS
  * ie. clicking board buttons, rendering etc
  */
+
+const _generateBoardID = (name, obscured) => {
+  const boardId = name.replace(/\s/g, "").toLowerCase();
+  if (obscured) {
+    return `${boardId}--hidden`;
+  } else {
+    return `${boardId}--active`;
+  }
+};
+
+/**
+ * Generate A Character Within Limit (ie. within the bounds of the board)
+ * @param {string} orientation horizontal/vertical
+ * @param {string} randChar letters a-j
+ * @param {number} length length of ship being placed
+ */
+const _generateCharWithinLimit = (orientation, randChar, length) => {
+  const limit = orientation === "horizontal" ? 9 : 106;
+  const isItNumber =
+    orientation === "horizontal" && typeof randChar === "number";
+  const letterCode = isItNumber ? null : randChar.charCodeAt(0);
+
+  // make sure that randNum provided is within the bounds:
+  // 1. it can never be bigger than 9
+  // 2. the sum of the current randChar + length is not bigger than the limit
+  // if it's a letter:
+  // 1. the range is between 97 - 106 and it can't be bigger than 106
+  // 2. the 'letter'.charCode + length should not be bigger than the limit
+  if (orientation === "horizontal" && randChar + length > limit) {
+    return _randNum(limit - length);
+  } else if (
+    orientation === "vertical" &&
+    letterCode &&
+    letterCode + length > limit
+  ) {
+    const min = "a".charCodeAt(0) - 1;
+    const newMax = limit - length - min;
+    return _randRowLetter(newMax);
+  } else {
+    return randChar;
+  }
+};
+
+/**
+ * generate rand positions for ships
+ */
+const _randPosGen = shipItem => {
+  const placedShips = {};
+
+  for (const ship of Object.keys(shipItem)) {
+    const shipDetail = shipItem[ship];
+    const orientation = _randOrientation();
+    let row, col, range;
+
+    if (orientation === "horizontal") {
+      row = _randRowLetter(); // same letter
+      col = _generateCharWithinLimit(
+        orientation,
+        _randNum(9),
+        shipDetail.length,
+      );
+      range = _generateRange(col, Number(col) + shipDetail.length);
+
+      range.forEach(num => {
+        placedShips[ship] = {
+          ...placedShips[ship],
+          [row + num]: true,
+        };
+      });
+    }
+
+    if (orientation === "vertical") {
+      row = _generateCharWithinLimit(
+        orientation,
+        _randRowLetter(),
+        shipDetail.length,
+      );
+      col = _randNum(9);
+      const startingPoint = row.charCodeAt(0);
+      range = _generateRange(
+        startingPoint,
+        startingPoint + shipDetail.length,
+      );
+
+      range.forEach(charNum => {
+        const letter = String.fromCharCode(charNum);
+        placedShips[ship] = {
+          ...placedShips[ship],
+          [letter + col]: true,
+        };
+      });
+    }
+  }
+
+  /** SOMEWHERE ASK IF THE POSITIONS GENERATED EXISTS??? */
+
+  return placedShips;
+};
 
 /**
  * generate obscured board to be hit
@@ -98,6 +202,9 @@ const _clickObscuredCell = (e, players) => {
 };
 
 export {
+  _generateBoardID,
+  _generateCharWithinLimit,
+  _randPosGen,
   _generateObscuredBoard,
   _generateActiveBoard,
   _clickObscuredCell,
