@@ -11,18 +11,7 @@ const _randNum = max => {
  * @returns {string}
  */
 const _randRowLetter = (max = 9) => {
-  const letterArrays = [
-    "a",
-    "b",
-    "c",
-    "d",
-    "e",
-    "f",
-    "g",
-    "h",
-    "i",
-    "j",
-  ];
+  const letterArrays = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
   const randIdx = _randNum(max);
 
   return letterArrays[randIdx];
@@ -35,6 +24,12 @@ const _randOrientation = () => {
   return orientation[randIdx];
 };
 
+/**
+ * Generate a range of numbers between given min and max
+ * @param {number} min
+ * @param {number} max
+ * @returns {array} array of numbers
+ */
 const _generateRange = (min, max) => {
   let result = [];
   for (let i = min; i < max; i++) {

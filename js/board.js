@@ -1,9 +1,4 @@
-import {
-  _randNum,
-  _randRowLetter,
-  _randOrientation,
-  _generateRange,
-} from "./utils";
+import { _randNum, _randRowLetter, _randOrientation, _generateRange } from "./utils";
 /**
  * BOARD RELATED FUNCTIONS
  * ie. clicking board buttons, rendering etc
@@ -26,8 +21,7 @@ const _generateBoardID = (name, obscured) => {
  */
 const _generateCharWithinLimit = (orientation, randChar, length) => {
   const limit = orientation === "horizontal" ? 9 : 106;
-  const isItNumber =
-    orientation === "horizontal" && typeof randChar === "number";
+  const isItNumber = orientation === "horizontal" && typeof randChar === "number";
   const letterCode = isItNumber ? null : randChar.charCodeAt(0);
 
   // make sure that randNum provided is within the bounds:
@@ -38,11 +32,7 @@ const _generateCharWithinLimit = (orientation, randChar, length) => {
   // 2. the 'letter'.charCode + length should not be bigger than the limit
   if (orientation === "horizontal" && randChar + length > limit) {
     return _randNum(limit - length);
-  } else if (
-    orientation === "vertical" &&
-    letterCode &&
-    letterCode + length > limit
-  ) {
+  } else if (orientation === "vertical" && letterCode && letterCode + length > limit) {
     const min = "a".charCodeAt(0) - 1;
     const newMax = limit - length - min;
     return _randRowLetter(newMax);
@@ -51,11 +41,13 @@ const _generateCharWithinLimit = (orientation, randChar, length) => {
   }
 };
 
+const _isCellAvailable = playerName => {};
+
 /**
  * generate rand positions for ships
  */
-const _randPosGen = shipItem => {
-  const placedShips = {};
+const _randPosGen = (shipItem, playerObj) => {
+  const shipCoords = {};
 
   for (const ship of Object.keys(shipItem)) {
     const shipDetail = shipItem[ship];
@@ -64,47 +56,46 @@ const _randPosGen = shipItem => {
 
     if (orientation === "horizontal") {
       row = _randRowLetter(); // same letter
-      col = _generateCharWithinLimit(
-        orientation,
-        _randNum(9),
-        shipDetail.length,
-      );
+      col = _generateCharWithinLimit(orientation, _randNum(9), shipDetail.length);
       range = _generateRange(col, Number(col) + shipDetail.length);
 
       range.forEach(num => {
-        placedShips[ship] = {
-          ...placedShips[ship],
-          [row + num]: true,
-        };
+        // place in array of placed ships
+        playerObj.placedShips = [...playerObj.placedShips, row + num];
+        // return { shipType: [ship], hit: false} in an object
+        shipCoords[row + num] = { shipType: ship, hit: false };
+        // return this object????
+        // shipCoords[ship] = {
+        //   ...shipCoords[ship],
+        //   [row + num]: true
+        // };
       });
     }
 
     if (orientation === "vertical") {
-      row = _generateCharWithinLimit(
-        orientation,
-        _randRowLetter(),
-        shipDetail.length,
-      );
+      row = _generateCharWithinLimit(orientation, _randRowLetter(), shipDetail.length);
       col = _randNum(9);
       const startingPoint = row.charCodeAt(0);
-      range = _generateRange(
-        startingPoint,
-        startingPoint + shipDetail.length,
-      );
+      range = _generateRange(startingPoint, startingPoint + shipDetail.length);
 
       range.forEach(charNum => {
         const letter = String.fromCharCode(charNum);
-        placedShips[ship] = {
-          ...placedShips[ship],
-          [letter + col]: true,
-        };
+
+        // place in array of placed ships
+        playerObj.placedShips = [...playerObj.placedShips, letter + col];
+        // return { shipType: [ship], hit: false} in an object
+        shipCoords[letter + col] = { shipType: ship, hit: false };
+        // shipCoords[ship] = {
+        //   ...shipCoords[ship],
+        //   [letter + col]: true
+        // };
       });
     }
   }
 
   /** SOMEWHERE ASK IF THE POSITIONS GENERATED EXISTS??? */
-
-  return placedShips;
+  // console.log("hiii???", shipCoords);
+  return shipCoords;
 };
 
 /**
@@ -193,7 +184,7 @@ const _clickObscuredCell = (e, players) => {
   // console.log("hello", e);
   console.log("hi are you still clicking", x, y, {
     enemy: enemy.playerName,
-    owner: owner.playerName,
+    owner: owner.playerName
   });
 
   // hit the enemy, update their board etc
@@ -207,5 +198,5 @@ export {
   _randPosGen,
   _generateObscuredBoard,
   _generateActiveBoard,
-  _clickObscuredCell,
+  _clickObscuredCell
 };
