@@ -5,7 +5,8 @@ import {
   _generateBoardID,
   _generateObscuredBoard,
   _generateActiveBoard,
-  _randPosGen as randPosGen
+  _randPosGen as randPosGen,
+  _isCellAvailable
 } from "./board";
 
 /**
@@ -71,16 +72,16 @@ const player = {
   },
   placeShip: function({ shipType, row, col, orientation }) {
     const idName = _generateBoardID(this.playerName, false);
-    const rowLimit = "j";
+    const currentRow = row.charCodeAt();
+    const rowLimit = "j".charCodeAt();
     const colLimit = 9;
     const shipSelected = this.ships[shipType];
     const { length } = shipSelected;
     const newBoard = { ...this.board };
+    const shipDetail = { shipType, hit: false };
     if (orientation === "horizontal" && col + length <= colLimit) {
-      console.log("you can place me here!", row, col);
       const range = _generateRange(col, col + length);
       for (const colPosition of range) {
-        const shipDetail = { shipType, hit: false };
         const rowArray = newBoard[row].map((x, idx) => (colPosition === idx ? shipDetail : x));
         newBoard[row] = [...rowArray];
         // disable placing button
@@ -91,6 +92,24 @@ const player = {
         this.ships[shipType].placed = true;
       }
       // reset currentsetCurrentShipSelected
+      this.setCurrentShipSelected({});
+      // update board
+      this.board = { ...newBoard };
+    } else if (orientation === "vertical" && currentRow + length <= rowLimit) {
+      const range = _generateRange(currentRow, currentRow + length);
+      for (const letterNum of range) {
+        const rowLetter = String.fromCharCode(letterNum);
+        const rowArray = newBoard[rowLetter].map((x, idx) => (col === idx ? shipDetail : x));
+        newBoard[row] = [...rowArray];
+        // disable placing button
+        u(`.pos-${shipType}`).attr({ disabled: true });
+        // show ships visually
+        u(`#${idName} > .cell-${rowLetter}${col}`).text("O");
+        // turn off click handler so people can't double click
+        u(`#${idName} > .cell-${rowLetter}${col}`).off("click");
+        // set ship as placed
+        this.ships[shipType].placed = true;
+      }
       this.setCurrentShipSelected({});
       // update board
       this.board = { ...newBoard };

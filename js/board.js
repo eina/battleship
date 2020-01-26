@@ -43,7 +43,12 @@ const _generateCharWithinLimit = (orientation, randChar, length) => {
   }
 };
 
-const _isCellAvailable = playerName => {};
+const _isCellAvailable = (e, playerObj) => {
+  if (e) {
+    const { x: row, y: col } = e.target.dataset;
+    return playerObj.board[row][col] ? false : true;
+  }
+};
 
 /**
  * generate rand positions for ships
@@ -223,8 +228,8 @@ const _clickObscuredCell = (e, players) => {
 const _clickActiveCell = (e, playerObj) => {
   const { x: row, y: col } = e.target.dataset;
   const { currentShipSelected } = playerObj;
-  if (currentShipSelected.orientation) {
-    // console.log("hey!", x, y, currentShipSelected);
+  const isCellAvailable = _isCellAvailable(e, playerObj);
+  if (currentShipSelected.orientation && isCellAvailable) {
     playerObj.placeShip({ row, col: Number(col), ...currentShipSelected });
   } else {
     console.log("select something!!!!!!!");
@@ -239,5 +244,6 @@ export {
   _generateActiveBoard,
   _clickPosButton,
   _clickObscuredCell,
-  _clickActiveCell
+  _clickActiveCell,
+  _isCellAvailable
 };
