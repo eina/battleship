@@ -47,6 +47,7 @@ const _isCellAvailable = playerName => {};
  * generate rand positions for ships
  */
 const _randPosGen = (shipItem, playerObj) => {
+  console.log("are you running randPosGen");
   const shipCoords = {};
 
   for (const ship of Object.keys(shipItem)) {
@@ -101,15 +102,15 @@ const _randPosGen = (shipItem, playerObj) => {
 /**
  * generate obscured board to be hit
  */
-const _generateObscuredBoard = (board, boardData) => {
-  if (board) {
+const _generateObscuredBoard = (boardElem, boardData) => {
+  if (boardElem) {
     for (const key of Object.keys(boardData)) {
       const data = boardData[key];
       // col header
-      board.append(`<div class="cell-header">
+      boardElem.append(`<div class="cell-header">
         ${key === "header" ? " " : key}
       </div>`);
-      board.append((status, index) => {
+      boardElem.append((status, index) => {
         // row header
         // console.log('what the fuck is this tho', status)
         if (key === "header") {

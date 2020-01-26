@@ -1,9 +1,8 @@
 import u from "umbrellajs";
-import { _randNum, _randRowLetter, _randOrientation } from "./utils";
+// import { _randNum, _randRowLetter, _randOrientation } from "./utils";
 import player from "./player";
-import { _randPosGen, _clickObscuredCell } from "./board";
-// import { testEnemyArr, testShipsArr, shipsDefaults } from "./data";
-import { shipsDefaults } from "./data";
+import { PLAYER_2_NAME, PLAYER_2_ID } from "./data";
+import { _clickObscuredCell } from "./board";
 
 // when game loads, instantiate players
 const player1 = { ...player };
@@ -11,23 +10,25 @@ const player2 = { ...player };
 
 // give playerNames, grab player 1's from user input
 player1.setPlayerName("Player 1");
-player2.setPlayerName("Player 2");
+player1.setPlayerID(1); // randomly generate in the future idk
+player2.setPlayerName(PLAYER_2_NAME);
+player2.setPlayerID(PLAYER_2_ID);
 
 // when instantiated:
 // generate player 2 ships
-// loop throuugh shipsDefaults
-player2.placeShip(true);
-// console.log("what are you?", player2.placedShips);
-console.log("what is your board like?", player2.board);
+// console.log("before generating? player 2: ", player2.board);
+player2.placeGeneratedShips();
+console.log("what is your board like? player 1: ", player1.board);
+console.log("what is your board like? player 2: ", player2.board);
 
 // generate boards
 // player 1's boards
-player1.showBoardOnDOM();
-player2.showBoardOnDOM(true);
+player1.showBoardOnDOM({ obscured: false, randomized: false });
+// player2.showBoardOnDOM({ obscured: true, randomized: false });
 
 // player 2's boards
-player2.showBoardOnDOM();
-player1.showBoardOnDOM(true, true);
+player2.showBoardOnDOM({ obscured: false, randomized: true });
+// player1.showBoardOnDOM({ obscured: true, randomized: false });
 
 // attach click functionality
 const player1btns = u("#player1--hidden .cell .btn-cell");

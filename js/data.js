@@ -1,3 +1,5 @@
+const PLAYER_2_ID = 2;
+const PLAYER_2_NAME = "Player 2";
 /**
  * Default starting board!
  */
@@ -18,6 +20,7 @@ const _board = {
 /**
  * All ships available in the game
  * Shallow copied to each Player object
+ * 17 total cells should be occupied
  */
 const shipsDefaults = {
   carrier: {
@@ -60,6 +63,8 @@ const _scores = {
 module.exports = {
   // testEnemyArr,
   // testShipsArr,
+  PLAYER_2_ID,
+  PLAYER_2_NAME,
   shipsDefaults,
   _scores,
   _board
