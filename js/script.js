@@ -17,7 +17,6 @@ import { _clickObscuredCell, _clickActiveCell, _clickPosButton } from "./board";
 const startBtn = u("#start-game");
 startBtn.handle("click", e => {
   console.log("start game!");
-  player2.generateMoves();
 });
 
 // when game loads, instantiate players
@@ -57,6 +56,7 @@ posControlBtns.handle("click", e => {
  */
 const player1ObscureBtns = u("#player1--hidden .cell .btn-cell");
 player1ObscureBtns.handle("click", e => {
+  // player 1 clicks
   _clickObscuredCell(e, { owner: player1, enemy: player2 });
   console.log("is the main board updating", player1.board);
 });
@@ -64,7 +64,12 @@ player1ObscureBtns.handle("click", e => {
 const player2ObscureBtns = u("#player2--hidden .cell .btn-cell");
 player2ObscureBtns.handle("click", e => {
   _clickObscuredCell(e, { enemy: player1, owner: player2 });
-  // console.log("is the main board updating", player2.board);
+  // player 2 moves after
+  // player2.generateMove(null, {
+  //   owner: player2,
+  //   enemy: player1
+  // });
+  console.log("is the main board updating", player2.board);
 });
 
 /**

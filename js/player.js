@@ -119,20 +119,20 @@ const player = {
     }
   },
   // generate moves for player2
-  generateMoves: function() {
+  generateMove: function(e, players) {
     // generate random number and letter
     const randomRow = _randRowLetter();
     const randomCol = _randNum(9);
-    // if (this.movesHistory.length) {
-    //   console.log(
-    //     "what is this recursion case",
-    //     this.movesHistory.indexOf(randomRow + randomCol) < 0
-    //   );
-    //   // if (this.movesHistory.indexOf(randomRow + randomCol) < 0) {
-    //   //   this.generateMoves();
-    //   // }
-    //   this.movesHistory = [...this.movesHistory, randomRow + randomCol];
-    // }
+    if (this.movesHistory.length) {
+      console.log(
+        "what is this recursion case",
+        this.movesHistory.indexOf(randomRow + randomCol) < 0
+      );
+      // if (this.movesHistory.indexOf(randomRow + randomCol) < 0) {
+      //   this.generateMoves();
+      // }
+      this.movesHistory = [...this.movesHistory, randomRow + randomCol];
+    }
     this.movesHistory = [...this.movesHistory, randomRow + randomCol];
 
     console.log("what is moves history now", this.movesHistory);

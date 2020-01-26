@@ -212,7 +212,7 @@ const _clickObscuredCell = (e, players) => {
     // change ship's hit status
     cellDetail.hit = true;
     // update owner's ship state
-    owner.ships = {
+    owner.ships[shipType] = {
       ...ship,
       hitParts: hitParts + 1
     };
