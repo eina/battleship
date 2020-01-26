@@ -77,6 +77,7 @@ const player = {
     const colLimit = 9;
     const shipSelected = this.ships[shipType];
     const { length } = shipSelected;
+    let placedShipsList = [...this.placedShips];
     const newBoard = { ...this.board };
     const shipDetail = { shipType, hit: false };
     if (orientation === "horizontal" && col + length <= colLimit) {
@@ -84,6 +85,8 @@ const player = {
       for (const colPosition of range) {
         const rowArray = newBoard[row].map((x, idx) => (colPosition === idx ? shipDetail : x));
         newBoard[row] = [...rowArray];
+        // record ships placed
+        placedShipsList = [...placedShipsList, row + colPosition];
         // disable placing button
         u(`.pos-${shipType}`).attr({ disabled: true });
         // show ships visually
@@ -95,12 +98,15 @@ const player = {
       this.setCurrentShipSelected({});
       // update board
       this.board = { ...newBoard };
+      this.placedShips = [...placedShipsList];
     } else if (orientation === "vertical" && currentRow + length <= rowLimit) {
       const range = _generateRange(currentRow, currentRow + length);
       for (const letterNum of range) {
         const rowLetter = String.fromCharCode(letterNum);
         const rowArray = newBoard[rowLetter].map((x, idx) => (col === idx ? shipDetail : x));
         newBoard[row] = [...rowArray];
+        // record ships placed
+        placedShipsList = [...placedShipsList, rowLetter + col];
         // disable placing button
         u(`.pos-${shipType}`).attr({ disabled: true });
         // show ships visually
@@ -113,6 +119,8 @@ const player = {
       this.setCurrentShipSelected({});
       // update board
       this.board = { ...newBoard };
+      // update list
+      this.placedShips = [...placedShipsList];
     } else {
       alert("please select a different cell");
       // console.log("try again!");
@@ -129,12 +137,32 @@ const player = {
       this.movesHistory = [...this.movesHistory, randomRow + randomCol];
     }
   },
+  /**
+   * Simulates Player 2 click on Player 1 board whenever Player 1 makes a move
+   * enemy: Player 1
+   * owner: Player 2
+   * Pick a random player. If Player 2 is selected, choose from
+   * the array of Player 1's moves. If Player 1 is selected, generate
+   * a random coordinate.
+   * @param {object} players { enemy, owner }
+   * @param {function} clickFunction expected: _clickObscureCell
+   */
   simulateClick: function(players, clickFunction) {
-    const generatedMovesLength = this.movesHistory.length;
-    const currentGeneratedMove = this.movesHistory[generatedMovesLength - 1];
-    const [currentRow, currentCol] = currentGeneratedMove;
-    // const fakeDataset = { target: { dataset: { x: currentRow, y: currentCol } } };
-    const fakeDataset = { target: { dataset: { x: "b", y: 1 } } };
+    const { enemy, owner } = players;
+    const randomMovesOwner = [enemy, owner][_randNum(1)];
+    let fakeDataset = {};
+
+    if (randomMovesOwner.playerName === "Player 2") {
+      const randIdx = _randNum(16);
+      const selectedCoords = enemy.placedShips.splice(randIdx, 1);
+      fakeDataset = { target: { dataset: { x: selectedCoords[0][0], y: selectedCoords[0][1] } } };
+    } else {
+      const generatedMovesLength = this.movesHistory.length;
+      const currentGeneratedMove = this.movesHistory[generatedMovesLength - 1];
+      fakeDataset = {
+        target: { dataset: { x: currentGeneratedMove[0], y: currentGeneratedMove[1] } }
+      };
+    }
     clickFunction(fakeDataset, players, true);
   },
   // main click function that handles attacks and scores

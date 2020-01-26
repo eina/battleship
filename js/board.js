@@ -70,7 +70,6 @@ const _randPosGen = (shipItem, playerObj) => {
       col = _generateCharWithinLimit(orientation, _randNum(9), shipDetail.length);
       range = _generateRange(col, Number(col) + shipDetail.length);
       range.forEach(num => {
-        // console.log("ship???", ship, tempCounter[ship]);
         // place in array of placed ships
         playerObj.placedShips = [...placedShips, row + num];
         // return { shipType: [ship], hit: false} in an object
@@ -221,7 +220,7 @@ const _clickObscuredCell = (e, players, computer = false) => {
     // change visual to match
     u(`#${hitCellID} > .cell-${x}${y}`).text("X");
 
-    console.log(owner.playerName, "ships: ", owner.ships);
+    // console.log(owner.playerName, "ships: ", owner.ships);
 
     console.log("have you updated", cellDetail);
     // update my own score
