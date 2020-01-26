@@ -1,35 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
-  <link rel="stylesheet" href="css/styles.css" />
-  <title>Battleship</title>
-</head>
-<body>
-  <!-- 10 x 10 board -->
-  <div id="main-container">
-    <p>player 1 / YOU, what you see!!!</p>
-    <p>try to hit the enemy's board!!!</p>
-    <div class="board-container">
-      <div class="board board--player1" id="player1--active"></div>
-      <div class="board board--player2" id="player2--hidden"></div>
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Battleship</title>
+  </head>
+  <body>
+    <!-- 10 x 10 board -->
+    <div id="main-container">
+      <p>player 1 / YOU, what you see!!!</p>
+      <div id="ship-container">
+        <ul>
+          <li>
+            Carrier:
+            <button
+              class="pos-control pos-carrier"
+              data-ship="carrier"
+              data-orientation="horizontal"
+            >
+              Horizontal
+            </button>
+            <button class="pos-control pos-carrier" data-ship="carrier" data-orientation="vertical">
+              Vertical
+            </button>
+          </li>
+          <li>
+            Battleship:
+            <button
+              class="pos-control pos-battleship"
+              data-ship="battleship"
+              data-orientation="horizontal"
+            >
+              Horizontal
+            </button>
+            <button
+              class="pos-control pos-battleship"
+              data-ship="battleship"
+              data-orientation="vertical"
+            >
+              Vertical
+            </button>
+          </li>
+          <li>
+            Cruiser:
+            <button
+              class="pos-control pos-cruiser"
+              data-ship="cruiser"
+              data-orientation="horizontal"
+            >
+              Horizontal
+            </button>
+            <button class="pos-control pos-cruiser" data-ship="cruiser" data-orientation="vertical">
+              Vertical
+            </button>
+          </li>
+          <li>
+            Submarine:
+            <button
+              class="pos-control pos-submarine"
+              data-ship="submarine"
+              data-orientation="horizontal"
+            >
+              Horizontal
+            </button>
+            <button
+              class="pos-control pos-submarine"
+              data-ship="submarine"
+              data-orientation="vertical"
+            >
+              Vertical
+            </button>
+          </li>
+          <li>
+            Destroyer:
+            <button
+              class="pos-control pos-destroyer"
+              data-ship="destroyer"
+              data-orientation="horizontal"
+            >
+              Horizontal
+            </button>
+            <button
+              class="pos-control pos-destroyer"
+              data-ship="destroyer"
+              data-orientation="vertical"
+            >
+              Vertical
+            </button>
+          </li>
+        </ul>
+      </div>
+      <p>try to hit the enemy's board!!!</p>
+      <div class="board-container">
+        <div class="board board--player1" id="player1--active"></div>
+        <div class="board board--player2" id="player2--hidden"></div>
+      </div>
+      <!-- still missing board to place ships in! -->
+
+      <p>player 2 / enemy board, what enemy sees!!</p>
+      <div class="board-container">
+        <div class="board board--player2" id="player2--active"></div>
+        <div class="board board--player1" id="player1--hidden"></div>
+      </div>
+      <!-- still missing player 1's obscured board! -->
     </div>
-    <!-- still missing board to place ships in! -->
-    
-    <p>player 2 / enemy board, what enemy sees!!</p>
-    <div class="board-container">
-      <div class="board board--player2" id="player2--active"></div>    
-      <div class="board board--player1" id="player1--hidden"></div>    
-    </div>
-    <!-- still missing player 1's obscured board! -->
- 
-  </div>
-  <script src="js/umbrella.js" type="text/javascript"></script>
-  <!-- <script src="js/data.js" type="text/javascript"></script>
+    <script src="js/umbrella.js" type="text/javascript"></script>
+    <!-- <script src="js/data.js" type="text/javascript"></script>
   <script src="js/functions.js" type="text/javascript"></script> -->
-  <script src="js/script.js" type="text/javascript"></script>
-</body>
+    <script src="js/script.js" type="text/javascript"></script>
+  </body>
 </html>

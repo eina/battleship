@@ -154,7 +154,8 @@ const _showShipMarker = (shipObj, row, col) => {
   } else {
     marker = "--";
   }
-  return `<div class="cell"><button class="btn-cell" data-x=${row} data-y=${col}>${marker}</button></div>`;
+  return `<div class="cell cell-${row}${col}" data-x=${row} data-y=${col}>${marker}</div>`;
+  // return `<div class="cell"><button class="btn-cell" data-x=${row} data-y=${col}>${marker}</button></div>`;
 };
 
 /**
@@ -182,6 +183,12 @@ const _generateActiveBoard = (boardElem, boardTemplate, playerObj) => {
       }, data);
     }
   }
+};
+
+const _clickPosButton = (e, playerObj) => {
+  const { ship, orientation } = e.target.dataset;
+  playerObj.setCurrentShipSelected({ shipType: ship, orientation });
+  // console.log("are you setting", playerObj.currentShipSelected);
 };
 
 const _clickObscuredCell = (e, players) => {
@@ -213,9 +220,15 @@ const _clickObscuredCell = (e, players) => {
   }
 };
 
-const _clickActiveCell = (e, players) => {
-  const { x, y } = e.target.dataset;
-  console.log("hey!", x, y);
+const _clickActiveCell = (e, playerObj) => {
+  const { x: row, y: col } = e.target.dataset;
+  const { currentShipSelected } = playerObj;
+  if (currentShipSelected.orientation) {
+    // console.log("hey!", x, y, currentShipSelected);
+    playerObj.placeShip({ row, col: Number(col), ...currentShipSelected });
+  } else {
+    console.log("select something!!!!!!!");
+  }
 };
 
 export {
@@ -224,6 +237,7 @@ export {
   _randPosGen,
   _generateObscuredBoard,
   _generateActiveBoard,
+  _clickPosButton,
   _clickObscuredCell,
   _clickActiveCell
 };
