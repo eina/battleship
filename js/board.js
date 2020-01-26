@@ -1,5 +1,6 @@
 import u from "umbrellajs";
 import { _randNum, _randRowLetter, _randOrientation, _generateRange } from "./utils";
+import player from "./player";
 /**
  * BOARD RELATED FUNCTIONS
  * ie. clicking board buttons, rendering etc
@@ -102,7 +103,9 @@ const _randPosGen = (shipItem, playerObj) => {
 /**
  * generate obscured board to be hit
  */
-const _generateObscuredBoard = (boardElem, boardData) => {
+const _generateObscuredBoard = (boardElem, boardTemplate, playerObj) => {
+  // if player already has a generated board, use that, if not, use the boardTemplate
+  const boardData = playerObj.board.header ? playerObj.board : boardTemplate;
   if (boardElem) {
     for (const key of Object.keys(boardData)) {
       const data = boardData[key];
@@ -151,7 +154,7 @@ const _showShipMarker = (shipObj, row, col) => {
   } else {
     marker = "--";
   }
-  return `<div class="cell row-${row} col-${col}">${marker}</div>`;
+  return `<div class="cell"><button class="btn-cell" data-x=${row} data-y=${col}>${marker}</button></div>`;
 };
 
 /**
@@ -160,8 +163,8 @@ const _showShipMarker = (shipObj, row, col) => {
  * @param {object} boardData
  */
 const _generateActiveBoard = (boardElem, boardTemplate, playerObj) => {
-  // const { board: boardData } = playerObj;
-  const boardData = { ...boardTemplate };
+  // if player already has a generated board, use that, if not, use the boardTemplate
+  const boardData = playerObj.board.header ? playerObj.board : boardTemplate;
   if (boardElem) {
     for (const key of Object.keys(boardData)) {
       const data = boardData[key];
@@ -210,11 +213,17 @@ const _clickObscuredCell = (e, players) => {
   }
 };
 
+const _clickActiveCell = (e, players) => {
+  const { x, y } = e.target.dataset;
+  console.log("hey!", x, y);
+};
+
 export {
   _generateBoardID,
   _generateCharWithinLimit,
   _randPosGen,
   _generateObscuredBoard,
   _generateActiveBoard,
-  _clickObscuredCell
+  _clickObscuredCell,
+  _clickActiveCell
 };

@@ -4,7 +4,7 @@ import u from "umbrellajs";
 // import { _randNum, _randRowLetter, _randOrientation } from "./utils";
 import player from "./player";
 import { PLAYER_2_NAME, PLAYER_2_ID } from "./data";
-import { _clickObscuredCell } from "./board";
+import { _clickObscuredCell, _clickActiveCell } from "./board";
 
 // when game loads, instantiate players
 const player1 = { ...player };
@@ -26,21 +26,39 @@ console.log("what is your board like? player 2: ", player2.board);
 // generate boards
 // player 1's boards
 player1.showBoardOnDOM({ obscured: false });
-player2.showBoardOnDOM({ obscured: true });
+// player2.showBoardOnDOM({ obscured: true });
 
 // player 2's boards
-player2.showBoardOnDOM({ obscured: false });
-// player1.showBoardOnDOM({ obscured: true});
+// player2.showBoardOnDOM({ obscured: false });
+player1.showBoardOnDOM({ obscured: true });
 
-// attach click functionality
-const player1btns = u("#player1--hidden .cell .btn-cell");
-player1btns.handle("click", e => {
+/**
+ * Obscure Boards Click Handlers
+ */
+const player1ObscureBtns = u("#player1--hidden .cell .btn-cell");
+player1ObscureBtns.handle("click", e => {
   _clickObscuredCell(e, { owner: player1, enemy: player2 });
+  console.log("is the main board updating", player1.board);
 });
 
-const player2btns = u("#player2--hidden .cell .btn-cell");
-player2btns.handle("click", e => {
+const player2ObscureBtns = u("#player2--hidden .cell .btn-cell");
+player2ObscureBtns.handle("click", e => {
   _clickObscuredCell(e, { enemy: player1, owner: player2 });
+  console.log("is the main board updating", player2.board);
+});
+
+/**
+ * Obscure Boards Click Handlers
+ */
+const player1ActiveBtns = u("#player1--active .cell .btn-cell");
+player1ActiveBtns.handle("click", e => {
+  _clickActiveCell(e, { owner: player1, enemy: player2 });
+  console.log("is the main board updating", player1.board);
+});
+
+const player2ActiveBtns = u("#player2--active .cell .btn-cell");
+player2ActiveBtns.handle("click", e => {
+  _clickActiveCell(e, { enemy: player1, owner: player2 });
   console.log("is the main board updating", player2.board);
 });
 
