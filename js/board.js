@@ -195,6 +195,14 @@ const _clickPosButton = (e, playerObj) => {
   // console.log("are you setting", playerObj.currentShipSelected);
 };
 
+const isShipAlive = (hitParts, length) => {
+  if (hitParts === length) {
+    console.log("ship down!");
+    return false;
+  }
+  return true;
+};
+
 const _clickObscuredCell = (e, players, computer = false) => {
   const { x, y } = e.target.dataset;
   const { enemy, owner } = players;
@@ -207,23 +215,23 @@ const _clickObscuredCell = (e, players, computer = false) => {
   if (cellDetail) {
     const { shipType } = cellDetail;
     const ship = owner.ships[shipType];
-    const { length, hitParts } = ship;
+    const { hitParts, length } = ship;
     // disable button if hit
     e.target.disabled = true;
     // change ship's hit status
     cellDetail.hit = true;
     // update owner's ship state
-    owner.ships[shipType] = {
+    player.ships[shipType] = {
       ...ship,
-      hitParts: hitParts + 1
+      hitParts: hitParts + 1,
+      active: isShipAlive(hitParts + 1, length)
     };
     // change visual to match
     u(`#${hitCellID} > .cell-${x}${y}`).text("X");
-
-    // console.log(owner.playerName, "ships: ", owner.ships);
-
-    console.log("have you updated", cellDetail);
+    // console.log("have you updated", cellDetail);
     // update my own score
+    console.log("who is the player", enemy.playerName);
+    enemy.incrementScore(shipType);
   }
 };
 

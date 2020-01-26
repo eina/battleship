@@ -10,6 +10,14 @@ import {
 } from "./board";
 
 /**
+ * TO DO:
+ *
+ * (bug) figure out the generating random ships w/o duplicate
+ * implement scoring
+ * implement blocking player if other is making a move
+ */
+
+/**
  * Player object and its defaults
  */
 
@@ -166,7 +174,14 @@ const player = {
     clickFunction(fakeDataset, players, true);
   },
   // main click function that handles attacks and scores
-  incrementScore: function(player) {}
+  incrementScore: function(shipType) {
+    const { active } = this.ships[shipType];
+    // console.log(this.playerName, " is the current player: ", shipType, this.ships[shipType]);
+    if (!active) {
+      console.log("increase score!");
+      this.score += 1;
+    }
+  }
 };
 
 export default player;

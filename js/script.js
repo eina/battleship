@@ -18,6 +18,7 @@ const startBtn = u("#start-game");
 startBtn.handle("click", e => {
   console.log("start game!");
 });
+let currentTurn = ""; // playerID?
 
 // when game loads, instantiate players
 const player1 = { ...player };
@@ -57,17 +58,20 @@ posControlBtns.handle("click", e => {
 const player1ObscureBtns = u("#player1--hidden .cell .btn-cell");
 player1ObscureBtns.handle("click", e => {
   // player 1 clicks
-  _clickObscuredCell(e, { owner: player1, enemy: player2 });
+  _clickObscuredCell(e, { enemy: player2, owner: player1 });
   console.log("is the main board updating", player1.board);
 });
 
 const player2ObscureBtns = u("#player2--hidden .cell .btn-cell");
 player2ObscureBtns.handle("click", e => {
   _clickObscuredCell(e, { enemy: player1, owner: player2 });
+
   // player 2 moves after
   player2.generateMove();
   player2.simulateClick({ enemy: player1, owner: player2 }, _clickObscuredCell);
-  console.log("is the main board updating", player2.board);
+  // console.log("is the main board updating", player2.board);
+
+  // console.log("scores", { player1: player1.score, player2: player2.score });
 });
 
 /**
