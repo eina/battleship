@@ -33,7 +33,6 @@ const player = {
   showBoardOnDOM: function({ obscured }) {
     const idName = _generateBoardID(this.playerName, obscured);
     const board = u(`#${idName}`);
-
     if (obscured) {
       _generateObscuredBoard(board, this.board, this.playerName);
     } else {
@@ -41,7 +40,6 @@ const player = {
     }
   },
   generateShipPositions: function() {
-    console.log("are you running generateShipPositions");
     let generatedShips = {};
     for (const shipName in this.ships) {
       const obj = randPosGen({ [shipName]: this.ships[shipName] }, this);
@@ -52,15 +50,16 @@ const player = {
   placeGeneratedShips: function() {
     const generatedShips = this.generateShipPositions();
     let newBoard = { ..._board };
-    console.log("before", { oldBoard: this.board, newBoard, generatedShips });
+    // console.log("before", { oldBoard: this.board, newBoard, generatedShips });
     for (const position in generatedShips) {
       const row = position[0];
       const col = position[1];
       const ship = generatedShips[position];
-      // console.log(newBoard[row][col]);
       newBoard[row][col] = ship;
     }
-    this.board = newBoard;
+    // console.log("newBoard", this.playerID, newBoard);
+    this.board = { ...newBoard };
+    // return newBoard;
   },
   placeShip: function() {},
   // main click function that handles attacks and scores

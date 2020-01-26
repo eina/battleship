@@ -1,3 +1,5 @@
+"use strict";
+
 import u from "umbrellajs";
 // import { _randNum, _randRowLetter, _randOrientation } from "./utils";
 import player from "./player";
@@ -16,26 +18,31 @@ player2.setPlayerID(PLAYER_2_ID);
 
 // when instantiated:
 // generate player 2 ships
-// console.log("before generating? player 2: ", player2.board);
 player2.placeGeneratedShips();
+// console.log("before generating? player 2: ", player2.board);
 console.log("what is your board like? player 1: ", player1.board);
 console.log("what is your board like? player 2: ", player2.board);
 
 // generate boards
 // player 1's boards
-player1.showBoardOnDOM({ obscured: false, randomized: false });
-// player2.showBoardOnDOM({ obscured: true, randomized: false });
+player1.showBoardOnDOM({ obscured: false });
+player2.showBoardOnDOM({ obscured: true });
 
 // player 2's boards
-player2.showBoardOnDOM({ obscured: false, randomized: true });
-// player1.showBoardOnDOM({ obscured: true, randomized: false });
+player2.showBoardOnDOM({ obscured: false });
+// player1.showBoardOnDOM({ obscured: true});
 
 // attach click functionality
 const player1btns = u("#player1--hidden .cell .btn-cell");
-player1btns.handle("click", e => _clickObscuredCell(e, { owner: player1, enemy: player2 }));
+player1btns.handle("click", e => {
+  _clickObscuredCell(e, { owner: player1, enemy: player2 });
+});
 
 const player2btns = u("#player2--hidden .cell .btn-cell");
-player2btns.handle("click", e => _clickObscuredCell(e, { enemy: player1, owner: player2 }));
+player2btns.handle("click", e => {
+  _clickObscuredCell(e, { enemy: player1, owner: player2 });
+  console.log("is the main board updating", player2.board);
+});
 
 /*** IGNORE BELOW FOR NOW  */
 

@@ -1,3 +1,4 @@
+import u from "umbrellajs";
 import { _randNum, _randRowLetter, _randOrientation, _generateRange } from "./utils";
 /**
  * BOARD RELATED FUNCTIONS
@@ -47,7 +48,6 @@ const _isCellAvailable = playerName => {};
  * generate rand positions for ships
  */
 const _randPosGen = (shipItem, playerObj) => {
-  console.log("are you running randPosGen");
   const shipCoords = {};
 
   for (const ship of Object.keys(shipItem)) {
@@ -182,15 +182,30 @@ const _generateActiveBoard = (board, boardData, playerName) => {
 const _clickObscuredCell = (e, players) => {
   const { x, y } = e.target.dataset;
   const { enemy, owner } = players;
-  // console.log("hello", e);
-  console.log("hi are you still clicking", x, y, {
-    enemy: enemy.playerName,
-    owner: owner.playerName
-  });
+  const cellDetail = owner.board[x][y];
+  console.log("can you hit a ship", cellDetail);
 
-  // hit the enemy, update their board etc
+  if (cellDetail) {
+    const { shipType } = cellDetail;
+    const ship = owner.ships[shipType];
+    const { length, hitParts } = ship;
+    // disable button if hit
+    e.target.disabled = true;
+    // change ship's hit status
+    cellDetail.hit = true;
+    // update owner's ship state
+    owner.ships = {
+      ...ship,
+      hitParts: hitParts + 1
+    };
+    // change visual to match
+    u(`div.cell.row-${x}.col-${y}`).text("X");
 
-  // update my own score
+    console.log(owner.playerName, "ships: ", owner.ships);
+
+    console.log("have you updated", cellDetail);
+    // update my own score
+  }
 };
 
 export {

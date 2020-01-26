@@ -17,6 +17,8 @@ const _board = {
   j: [null, null, null, null, null, null, null, null, null, null]
 };
 
+// Object.freeze(_board);
+
 /**
  * All ships available in the game
  * Shallow copied to each Player object
