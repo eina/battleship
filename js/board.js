@@ -196,12 +196,14 @@ const _clickPosButton = (e, playerObj) => {
   // console.log("are you setting", playerObj.currentShipSelected);
 };
 
-const _clickObscuredCell = (e, players) => {
+const _clickObscuredCell = (e, players, computer = false) => {
   const { x, y } = e.target.dataset;
   const { enemy, owner } = players;
-  const hitCellID = _generateBoardID(owner.playerName, false);
-  const cellDetail = owner.board[x][y];
+  const player = computer ? enemy : owner;
+  const hitCellID = _generateBoardID(player.playerName, false);
+  const cellDetail = player.board[x][y];
   // console.log("can you hit a ship", cellDetail);
+  // console.log("what did you hit lol", hitCellID);
 
   if (cellDetail) {
     const { shipType } = cellDetail;

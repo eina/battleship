@@ -119,23 +119,23 @@ const player = {
     }
   },
   // generate moves for player2
-  generateMove: function(e, players) {
+  generateMove: function() {
     // generate random number and letter
     const randomRow = _randRowLetter();
     const randomCol = _randNum(9);
-    if (this.movesHistory.length) {
-      console.log(
-        "what is this recursion case",
-        this.movesHistory.indexOf(randomRow + randomCol) < 0
-      );
-      // if (this.movesHistory.indexOf(randomRow + randomCol) < 0) {
-      //   this.generateMoves();
-      // }
+    if (this.movesHistory.length && this.movesHistory.indexOf(randomRow + randomCol) > 0) {
+      this.generateMove();
+    } else {
       this.movesHistory = [...this.movesHistory, randomRow + randomCol];
     }
-    this.movesHistory = [...this.movesHistory, randomRow + randomCol];
-
-    console.log("what is moves history now", this.movesHistory);
+  },
+  simulateClick: function(players, clickFunction) {
+    const generatedMovesLength = this.movesHistory.length;
+    const currentGeneratedMove = this.movesHistory[generatedMovesLength - 1];
+    const [currentRow, currentCol] = currentGeneratedMove;
+    // const fakeDataset = { target: { dataset: { x: currentRow, y: currentCol } } };
+    const fakeDataset = { target: { dataset: { x: "b", y: 1 } } };
+    clickFunction(fakeDataset, players, true);
   },
   // main click function that handles attacks and scores
   incrementScore: function(player) {}

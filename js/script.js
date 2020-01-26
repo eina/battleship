@@ -65,10 +65,8 @@ const player2ObscureBtns = u("#player2--hidden .cell .btn-cell");
 player2ObscureBtns.handle("click", e => {
   _clickObscuredCell(e, { enemy: player1, owner: player2 });
   // player 2 moves after
-  // player2.generateMove(null, {
-  //   owner: player2,
-  //   enemy: player1
-  // });
+  player2.generateMove();
+  player2.simulateClick({ enemy: player1, owner: player2 }, _clickObscuredCell);
   console.log("is the main board updating", player2.board);
 });
 
