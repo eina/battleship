@@ -3,6 +3,23 @@ import player from "./player";
 import { PLAYER_2_NAME, PLAYER_2_ID } from "./data";
 import { _clickObscuredCell, _clickActiveCell, _clickPosButton } from "./board";
 
+/**
+ * Flow:
+ *
+ * 1. Ask for user's name
+ * 2. Place Player 2's ships
+ * 3. generate a list of moves
+ * 4. Let Player 1 place their ships
+ * 5. Wait until start game button is pressed
+ */
+
+// start game btn
+const startBtn = u("#start-game");
+startBtn.handle("click", e => {
+  console.log("start game!");
+  player2.generateMoves();
+});
+
 // when game loads, instantiate players
 const player1 = { ...player };
 const player2 = { ...player };
@@ -20,7 +37,7 @@ player2.placeGeneratedShips();
 // generate boards
 // player 1's boards
 player1.showBoardOnDOM({ obscured: false });
-// player2.showBoardOnDOM({ obscured: true });
+player2.showBoardOnDOM({ obscured: true });
 
 // player 2's boards
 player1.showBoardOnDOM({ obscured: true });
@@ -47,7 +64,7 @@ player1ObscureBtns.handle("click", e => {
 const player2ObscureBtns = u("#player2--hidden .cell .btn-cell");
 player2ObscureBtns.handle("click", e => {
   _clickObscuredCell(e, { enemy: player1, owner: player2 });
-  console.log("is the main board updating", player2.board);
+  // console.log("is the main board updating", player2.board);
 });
 
 /**
@@ -56,7 +73,7 @@ player2ObscureBtns.handle("click", e => {
 const player1ActiveCell = u("#player1--active .cell");
 player1ActiveCell.handle("click", e => {
   _clickActiveCell(e, player1);
-  console.log("is the main board updating", player1.board);
+  // console.log("is the main board updating", player1.board);
 });
 
 // const player2ActiveCell = u("#player2--active .cell");

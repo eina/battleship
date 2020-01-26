@@ -1,6 +1,6 @@
 import u from "umbrellajs";
 import { shipsDefaults, _board } from "./data";
-import { _generateRange } from "./utils";
+import { _generateRange, _randNum, _randRowLetter } from "./utils";
 import {
   _generateBoardID,
   _generateObscuredBoard,
@@ -117,6 +117,25 @@ const player = {
       alert("please select a different cell");
       // console.log("try again!");
     }
+  },
+  // generate moves for player2
+  generateMoves: function() {
+    // generate random number and letter
+    const randomRow = _randRowLetter();
+    const randomCol = _randNum(9);
+    // if (this.movesHistory.length) {
+    //   console.log(
+    //     "what is this recursion case",
+    //     this.movesHistory.indexOf(randomRow + randomCol) < 0
+    //   );
+    //   // if (this.movesHistory.indexOf(randomRow + randomCol) < 0) {
+    //   //   this.generateMoves();
+    //   // }
+    //   this.movesHistory = [...this.movesHistory, randomRow + randomCol];
+    // }
+    this.movesHistory = [...this.movesHistory, randomRow + randomCol];
+
+    console.log("what is moves history now", this.movesHistory);
   },
   // main click function that handles attacks and scores
   incrementScore: function(player) {}

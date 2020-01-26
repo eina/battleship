@@ -199,8 +199,9 @@ const _clickPosButton = (e, playerObj) => {
 const _clickObscuredCell = (e, players) => {
   const { x, y } = e.target.dataset;
   const { enemy, owner } = players;
+  const hitCellID = _generateBoardID(owner.playerName, false);
   const cellDetail = owner.board[x][y];
-  console.log("can you hit a ship", cellDetail);
+  // console.log("can you hit a ship", cellDetail);
 
   if (cellDetail) {
     const { shipType } = cellDetail;
@@ -216,7 +217,7 @@ const _clickObscuredCell = (e, players) => {
       hitParts: hitParts + 1
     };
     // change visual to match
-    u(`div.cell.row-${x}.col-${y}`).text("X");
+    u(`#${hitCellID} > .cell-${x}${y}`).text("X");
 
     console.log(owner.playerName, "ships: ", owner.ships);
 
