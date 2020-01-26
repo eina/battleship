@@ -49,29 +49,32 @@ const _isCellAvailable = playerName => {};
  */
 const _randPosGen = (shipItem, playerObj) => {
   const shipCoords = {};
+  const { placedShips } = playerObj;
+  let tempCounter = {};
 
   for (const ship of Object.keys(shipItem)) {
     const shipDetail = shipItem[ship];
     const orientation = _randOrientation();
     let row, col, range;
 
+    tempCounter = { [ship]: 0, ...tempCounter };
+
     if (orientation === "horizontal") {
       row = _randRowLetter(); // same letter
       col = _generateCharWithinLimit(orientation, _randNum(9), shipDetail.length);
       range = _generateRange(col, Number(col) + shipDetail.length);
-
       range.forEach(num => {
+        // console.log("ship???", ship, tempCounter[ship]);
         // place in array of placed ships
-        playerObj.placedShips = [...playerObj.placedShips, row + num];
+        playerObj.placedShips = [...placedShips, row + num];
         // return { shipType: [ship], hit: false} in an object
         shipCoords[row + num] = { shipType: ship, hit: false };
-        // return this object????
-        // shipCoords[ship] = {
-        //   ...shipCoords[ship],
-        //   [row + num]: true
-        // };
+        // mark ship as placed if counter is the same length
+        tempCounter[ship] += 1;
       });
     }
+
+    // console.log("hello temp counter", tempCounter);
 
     if (orientation === "vertical") {
       row = _generateCharWithinLimit(orientation, _randRowLetter(), shipDetail.length);
@@ -83,19 +86,16 @@ const _randPosGen = (shipItem, playerObj) => {
         const letter = String.fromCharCode(charNum);
 
         // place in array of placed ships
-        playerObj.placedShips = [...playerObj.placedShips, letter + col];
+        playerObj.placedShips = [...placedShips, letter + col];
         // return { shipType: [ship], hit: false} in an object
         shipCoords[letter + col] = { shipType: ship, hit: false };
-        // shipCoords[ship] = {
-        //   ...shipCoords[ship],
-        //   [letter + col]: true
-        // };
+        // mark ship as placed if counter is the same length
+        tempCounter[ship] += 1;
       });
     }
   }
 
   /** SOMEWHERE ASK IF THE POSITIONS GENERATED EXISTS??? */
-  // console.log("hiii???", shipCoords);
   return shipCoords;
 };
 

@@ -63,7 +63,7 @@ const player = {
   },
   placeShip: function() {},
   // main click function that handles attacks and scores
-  incrementScore: () => {} // increments score (this.score) for the player
+  incrementScore: function(player) {}
 };
 
 export default player;
