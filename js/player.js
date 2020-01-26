@@ -32,11 +32,12 @@ const player = {
   },
   showBoardOnDOM: function({ obscured }) {
     const idName = _generateBoardID(this.playerName, obscured);
-    const board = u(`#${idName}`);
+    const boardElem = u(`#${idName}`);
+    console.log("did you get mutated????", _board);
     if (obscured) {
-      _generateObscuredBoard(board, this.board, this.playerName);
+      _generateObscuredBoard(boardElem, this.board, this.playerName);
     } else {
-      _generateActiveBoard(board, this.board, this.playerName);
+      _generateActiveBoard(boardElem, this.board, this);
     }
   },
   generateShipPositions: function() {
@@ -55,10 +56,19 @@ const player = {
       const row = position[0];
       const col = position[1];
       const ship = generatedShips[position];
-      newBoard[row][col] = ship;
+      const rowArray = newBoard[row].map((x, idx) => {
+        if (Number(col) === idx) {
+          return ship;
+        } else {
+          return x;
+        }
+      });
+      // console.log("hi????", rowArray);
+      newBoard[row] = [...rowArray];
     }
     // console.log("newBoard", this.playerID, newBoard);
     this.board = { ...newBoard };
+
     // return newBoard;
   },
   placeShip: function() {},

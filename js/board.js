@@ -159,15 +159,17 @@ const _showShipMarker = (shipObj, row, col) => {
  * @param {HTML element} board
  * @param {object} boardData
  */
-const _generateActiveBoard = (board, boardData, playerName) => {
-  if (board) {
+const _generateActiveBoard = (boardElem, boardTemplate, playerObj) => {
+  // const { board: boardData } = playerObj;
+  const boardData = { ...boardTemplate };
+  if (boardElem) {
     for (const key of Object.keys(boardData)) {
       const data = boardData[key];
       // generate row header
-      board.append(`<div class="cell-header">
+      boardElem.append(`<div class="cell-header">
         ${key === "header" ? " " : key}
       </div>`);
-      board.append((status, index) => {
+      boardElem.append((status, index) => {
         // generate col header
         if (key === "header") {
           return `<div class="cell-header">${status}</div>`;
