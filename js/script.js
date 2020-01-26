@@ -71,7 +71,7 @@ player2ObscureBtns.handle("click", e => {
   player2.simulateClick({ enemy: player1, owner: player2 }, _clickObscuredCell);
   // console.log("is the main board updating", player2.board);
 
-  // console.log("scores", { player1: player1.score, player2: player2.score });
+  console.log("scores", { player1: player1.score, player2: player2.score });
 });
 
 /**

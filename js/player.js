@@ -12,8 +12,8 @@ import {
 /**
  * TO DO:
  *
+ * (bug) why can't you place ships at the edge!!!!!!
  * (bug) figure out the generating random ships w/o duplicate
- * implement scoring
  * implement blocking player if other is making a move
  */
 
@@ -81,8 +81,8 @@ const player = {
   placeShip: function({ shipType, row, col, orientation }) {
     const idName = _generateBoardID(this.playerName, false);
     const currentRow = row.charCodeAt();
-    const rowLimit = "j".charCodeAt();
-    const colLimit = 9;
+    const rowLimit = "k".charCodeAt();
+    const colLimit = 10;
     const shipSelected = this.ships[shipType];
     const { length } = shipSelected;
     let placedShipsList = [...this.placedShips];
@@ -162,7 +162,9 @@ const player = {
 
     if (randomMovesOwner.playerName === "Player 2") {
       const randIdx = _randNum(16);
+      // TODO: FIX THIS, it gets to 0!!!      )
       const selectedCoords = enemy.placedShips.splice(randIdx, 1);
+      console.log(enemy.placedShips);
       fakeDataset = { target: { dataset: { x: selectedCoords[0][0], y: selectedCoords[0][1] } } };
     } else {
       const generatedMovesLength = this.movesHistory.length;
